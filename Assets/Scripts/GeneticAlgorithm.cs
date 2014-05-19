@@ -63,11 +63,11 @@ public class GeneticAlgorithm
             }
             #endregion
 
-            #region Croisement de la Individal
+            #region Crossover of the reproductors
             Individal[] newPopulation = Crossover(bestIndividuals);
             #endregion
 
-            #region Mutation de la Individal
+            #region Mutation of the new population
             newPopulation = Mutation(newPopulation);
             #endregion
 
@@ -96,7 +96,7 @@ public class GeneticAlgorithm
             Individal parent1 = bestIndividuals[Random.Range(0, bestIndividuals.Length)];
             Individal parent2 = bestIndividuals[Random.Range(0, bestIndividuals.Length)];
 
-            crossPopulation[i] = parent1.Crossover(parent2); ;
+            crossPopulation[i] = parent1.Crossover(parent2);
         }
 
         return crossPopulation;
