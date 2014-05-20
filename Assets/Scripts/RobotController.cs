@@ -21,7 +21,7 @@ public class RobotController : MonoBehaviour {
 			else module.transform.parent	= this.transform;
 			Vector3 rotation 				= Vector3.zero;
 			Vector3 position 				= Vector3.zero;
-			float middle 					= module.transform.localScale.x/2.0f * module.renderer.bounds.size.x/2.0f;
+			float middle 					= module.transform.localScale.x/2.0f;
 
 			if(i > 1){
 				rotation.z = 90;

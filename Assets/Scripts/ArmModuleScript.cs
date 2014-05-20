@@ -17,7 +17,7 @@ public class ArmModuleScript : MonoBehaviour {
 		this.SetModule(new Vector3(2.0f, 2.0f, -2.0f), 1f);
 		this.currentTime = this.amplitude / 2f;
 
-		this.obj.transform.localPosition = new Vector3(this.transform.localPosition.x - this.obj.transform.localScale.x  / 2, this.transform.localPosition.y, this.transform.localPosition.z);	
+		this.obj.transform.localPosition = new Vector3(this.obj.transform.localScale.x  / 2, 0, 0);	
 	}
 	
 	// Update is called once per frame
