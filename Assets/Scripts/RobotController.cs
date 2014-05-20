@@ -12,7 +12,9 @@ public class RobotController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		foreach (Transform child in transform) {
-			sockets.Add(child);
+			foreach(Transform subchild in child.transform){
+				sockets.Add(subchild);
+			}
 		}
 		for (int i = 0; i < modules.Count; i++) {
 			GameObject module 				= (GameObject) GameObject.Instantiate(modules[i]);
