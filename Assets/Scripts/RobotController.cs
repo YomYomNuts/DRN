@@ -19,7 +19,8 @@ public class RobotController : MonoBehaviour {
 			if(i < sockets.Count)
 				module.transform.parent 	= sockets[i];
 			else module.transform.parent	= this.transform;
-			module.transform.localPosition 	= new Vector3(module.transform.localScale.x/2.0f, 0, 0);
+			module.transform.localPosition 	= new Vector3(module.transform.localScale.x/2.0f 
+			                                              * module.renderer.bounds.size.x/2.0f, 0, 0);
 		}
 	}
 	
