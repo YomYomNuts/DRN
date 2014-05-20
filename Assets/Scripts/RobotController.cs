@@ -19,13 +19,33 @@ public class RobotController : MonoBehaviour {
 			if(i < sockets.Count)
 				module.transform.parent 	= sockets[i];
 			else module.transform.parent	= this.transform;
-			module.transform.localPosition 	= new Vector3(module.transform.localScale.x/2.0f 
-			                                              * module.renderer.bounds.size.x/2.0f, 0, 0);
+			Vector3 rotation 				= Vector3.zero;
+			Vector3 position 				= Vector3.zero;
+			float middle 					= module.transform.localScale.x/2.0f * module.renderer.bounds.size.x/2.0f;
+
+			if(i > 1){
+				rotation.z = 90;
+				position.y = -middle;
+			}else if(i > 0){
+				rotation.y = 180;
+				position.x = -middle;
+			}else{
+				position.x = middle;
+			}
+			module.transform.Rotate(rotation);
+			module.transform.localPosition 	= position;
 		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+		//update neurons
+		//for each neuron, send message to matching module
+		foreach (GameObject module in modules) {
+			/*
+			module.SendMessage("AmplitudePulse", 5.0);
+			module.SendMessage("DirectionPulse", new Vector3(1.0f, 1.0f, 0.0f));
+			*/
+		}
 	}
 }
