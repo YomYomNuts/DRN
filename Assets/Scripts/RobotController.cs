@@ -26,23 +26,29 @@ public class RobotController : MonoBehaviour {
 			module.transform.localPosition = Vector3.zero;
 			module.transform.localScale = Vector3.one;
 
-			module.GetComponent<ArmModuleScript>().SetModule(new Vector3(2.0f, 2.0f, -2.0f), 1f);
-
+			if(i < 2) module.GetComponent<ArmModuleScript>().SetModule(new Vector3(2.0f, 2.0f, 2.0f), 1f);
 
 			Vector3 rotation 				= Vector3.zero;
 			Vector3 position 				= Vector3.zero;
 			float middle 					= this.transform.GetChild(i).transform.localScale.x / 2.0f;
 
-			if(i > 1){
-				rotation.z = 90;
-				position.y = -middle;
-			}else if(i > 0){
+			if(i == 0) {
+				position.x = middle;
+			} else if (i == 1) {
 				rotation.y = 180;
 				position.x = -middle;
-			}else{
-				position.x = middle;
 			}
-			module.transform.Rotate(rotation);
+
+//			if(i > 1 && i < 2){
+//				rotation.z = 90;
+//				position.y = -middle;
+//			}else if(i > 0 && i < 2){
+//
+//			}else{
+//				position.x = middle;
+//			}
+
+			if(i < 2) module.transform.Rotate(rotation);
 			module.transform.localPosition 	= position;
 		}
 	}
