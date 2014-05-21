@@ -11,13 +11,9 @@ public class ArmModuleScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		this.obj.transform.parent = this.transform;
 
-		this.SetModule(new Vector3(2.0f, 2.0f, -2.0f), 1f);
-		this.currentTime = this.amplitude / 2f;
+		//this.SetModule(new Vector3(2.0f, 2.0f, -2.0f), 1f);
 
-		this.obj.transform.localPosition = new Vector3(this.obj.transform.localScale.x  / 2, 0, 0);	
 	}
 	
 	// Update is called once per frame
@@ -34,9 +30,15 @@ public class ArmModuleScript : MonoBehaviour {
 	}
 
 	public void SetModule(Vector3 _speed, float _amplitude) {
+		this.obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		this.obj.transform.parent = this.transform;
+
 		this.speed = _speed;
 		this.amplitude = _amplitude;
 		this.obj.transform.localScale = new Vector3 (Random.value, Random.value, Random.value);
+
+		this.currentTime = this.amplitude / 2f;		
+		this.obj.transform.localPosition = new Vector3(this.obj.transform.localScale.x  / 2, 0, 0);	
 	}
 
 	private void SetRotation() {

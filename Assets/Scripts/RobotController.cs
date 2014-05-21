@@ -21,9 +21,17 @@ public class RobotController : MonoBehaviour {
 			if(i < sockets.Count)
 				module.transform.parent 	= sockets[i];
 			else module.transform.parent	= this.transform;
+
+			module.transform.localRotation = Quaternion.identity;
+			module.transform.localPosition = Vector3.zero;
+			module.transform.localScale = Vector3.one;
+
+			module.GetComponent<ArmModuleScript>().SetModule(new Vector3(2.0f, 2.0f, -2.0f), 1f);
+
+
 			Vector3 rotation 				= Vector3.zero;
 			Vector3 position 				= Vector3.zero;
-			float middle 					= module.transform.localScale.x/2.0f;
+			float middle 					= this.transform.GetChild(i).transform.localScale.x / 2.0f;
 
 			if(i > 1){
 				rotation.z = 90;
