@@ -47,13 +47,9 @@ public class GeneticAlgorithmWeapon : MonoBehaviour
                                     .Crossover(this.listBestWeapon[Random.Range(0, this.listBestWeapon.Count - 1)].Scale);
             wt.Scale.Mutation(valueMutationWeapon);
 
-            int indexReproducteurToGet = Random.Range(0, this.listBestWeapon.Count - 1);
-            NeuronalNetwork networkReproductor = new NeuronalNetwork();
-
             bool find = false;
             Vector3 minDistance = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
             WeaponType wpFind = new WeaponType();
-            int i = 0;
             foreach (WeaponType wp in this.listBestWeapon)
             {
                 Vector3 distance = wt.Scale.ValueElement - wp.Scale.ValueElement;
@@ -67,10 +63,6 @@ public class GeneticAlgorithmWeapon : MonoBehaviour
                     minDistance = distance;
                     wpFind = wp;
                 }
-
-                if (indexReproducteurToGet == i)
-                    networkReproductor = wp.Network;
-                ++i;
             }
 
             if (find)
