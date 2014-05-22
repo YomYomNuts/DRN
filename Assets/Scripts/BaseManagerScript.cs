@@ -6,10 +6,10 @@ public class BaseManagerScript : MonoBehaviour {
 
 	public List<GameObject> listOfSpawnPoints = new List<GameObject>();
 	public int nbUnitToSpawn;
-	public List<GameObject> listOfUnits = new List<GameObject>();
+	[HideInInspector] public List<GameObject> listOfUnits = new List<GameObject>();
 	private int unitCounter;
 	private int currentSpawnPoint;
-	/*[HideInInspector]*/ public List<GameObject> listOfBases = new List<GameObject>();
+	[HideInInspector] public List<GameObject> listOfBases = new List<GameObject>();
 	
 	// Use this for initialization
 	void Start () {
@@ -34,7 +34,7 @@ public class BaseManagerScript : MonoBehaviour {
 		if(unitCounter < nbUnitToSpawn)
 		{
 			int i=0;
-			Debug.Log(this.name + " unitCounter:"+unitCounter+"  nbUnitToSpawn:"+nbUnitToSpawn);
+			
 			for(i = unitCounter; i < nbUnitToSpawn; ++i)
 			{
 				GameObject unit = (GameObject)Instantiate(Resources.Load("Prefabs/Unit"));
