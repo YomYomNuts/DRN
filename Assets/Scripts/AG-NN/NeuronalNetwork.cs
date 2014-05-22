@@ -34,10 +34,18 @@ public class NeuronalNetwork
     #endregion
 
     #region Constructor
+    public NeuronalNetwork()
+    {
+        this.sizeNeuronalNetwork = new List<int>();
+        this.neuronalNetwork = new List<List<Node>>();
+        this.score = 0;
+    }
+
     public NeuronalNetwork(List<int> sizeNeuronalNetwork, bool generateWeights)
     {
         this.sizeNeuronalNetwork = sizeNeuronalNetwork;
         this.neuronalNetwork = new List<List<Node>>();
+        this.score = 0;
         for (int i = 0; i < this.sizeNeuronalNetwork.Count; i++)
 	    {
 		    List<Node> layer = new List<Node>();
