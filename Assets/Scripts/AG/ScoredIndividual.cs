@@ -6,7 +6,7 @@ class ScoredIndividual
     /// <summary>
     /// La configuration des cubes (solution)
     /// </summary>
-    public Individal Configuration { get; set; }
+    public IndividalGenetic Configuration { get; set; }
 
     /// <summary>
     /// Le score de la configuration ci-dessus

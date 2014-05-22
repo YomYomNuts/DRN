@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Individal
+public class IndividalGenetic
 {
     #region Private Attributs
-    private Element[] elements;
+    private ElementGenetic[] elements;
     private float score;
     #endregion
 
     #region Getter & Setter
-    public Element[] Elements
+    public ElementGenetic[] Elements
     {
         get { return this.elements; }
         set { this.elements = value; }
@@ -22,19 +22,19 @@ public class Individal
     #endregion
 
     #region Constructor
-    public Individal(int numElements)
+    public IndividalGenetic(int numElements)
     {
-        this.elements = new Element[numElements];
+        this.elements = new ElementGenetic[numElements];
 
         for (int i = 0; i < numElements; ++i)
-            this.elements[i] = new Element();
+            this.elements[i] = new ElementGenetic();
     }
     #endregion
 
     #region Functions
-    public Individal CopyIndividal()
+    public IndividalGenetic CopyIndividal()
     {
-        Individal newIndividal = new Individal(this.Elements.Length);
+        IndividalGenetic newIndividal = new IndividalGenetic(this.Elements.Length);
 
         for (int i = 0; i < this.Elements.Length; ++i)
         {
@@ -57,9 +57,9 @@ public class Individal
         return numberZero;
     }
 
-    public Individal Crossover(Individal otherParent)
+    public IndividalGenetic Crossover(IndividalGenetic otherParent)
     {
-        Individal child = new Individal(this.elements.Length);
+        IndividalGenetic child = new IndividalGenetic(this.elements.Length);
 
         for (int i = 0; i < child.Elements.Length; i++)
         {

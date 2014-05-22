@@ -14,9 +14,9 @@ public class GeneticAlgorithm
 
     #region Private Attributes
     private int NumberIndividualSelectedByReproduction;
-    private List<Individal> Population;
+    private List<IndividalGenetic> Population;
     private int NumberIterations;
-    private Individal CurrentIndividual;
+    private IndividalGenetic CurrentIndividual;
     private float CurrentError;
     #endregion
 
@@ -24,13 +24,13 @@ public class GeneticAlgorithm
     {
         this.NumberIndividualSelectedByReproduction = (int)(this.SizePopulation * this.PercentageSelectionReproduction);
 
-        this.CurrentIndividual = new Individal(this.NumberElements);
+        this.CurrentIndividual = new IndividalGenetic(this.NumberElements);
         this.CurrentError = this.CurrentIndividual.GetError();
 
-        this.Population = new List<Individal>();
+        this.Population = new List<IndividalGenetic>();
         for (int i = 0; i < this.SizePopulation; ++i)
         {
-            this.Population.Add(new Individal(this.NumberElements));
+            this.Population.Add(new IndividalGenetic(this.NumberElements));
         }
 
         this.NumberIterations = 0;
@@ -52,7 +52,7 @@ public class GeneticAlgorithm
             #endregion
 
             #region Select the reproductors
-            Individal[] bestIndividuals = Selection(scoredIndividuals);
+            IndividalGenetic[] bestIndividuals = Selection(scoredIndividuals);
             #endregion
 
             #region Get the best one
@@ -64,21 +64,21 @@ public class GeneticAlgorithm
             #endregion
 
             #region Crossover of the reproductors
-            Individal[] newPopulation = Crossover(bestIndividuals);
+            IndividalGenetic[] newPopulation = Crossover(bestIndividuals);
             #endregion
 
             #region Mutation of the new population
             newPopulation = Mutation(newPopulation);
             #endregion
 
-            this.Population = new List<Individal>(newPopulation);
+            this.Population = new List<IndividalGenetic>(newPopulation);
             ++this.NumberIterations;
 
             yield return new WaitForSeconds(0.0001f);
         }
     }
 
-    Individal[] Selection(ScoredIndividual[] scoredIndividuals)
+    IndividalGenetic[] Selection(ScoredIndividual[] scoredIndividuals)
     {
         return scoredIndividuals
             .OrderBy((scoredindi) => scoredindi.Score)
@@ -87,14 +87,14 @@ public class GeneticAlgorithm
             .ToArray();
     }
 
-    Individal[] Crossover(Individal[] bestIndividuals)
+    IndividalGenetic[] Crossover(IndividalGenetic[] bestIndividuals)
     {
-        Individal[] crossPopulation = new Individal[this.SizePopulation];
+        IndividalGenetic[] crossPopulation = new IndividalGenetic[this.SizePopulation];
 
         for (int i = 0; i < this.SizePopulation; ++i)
         {
-            Individal parent1 = bestIndividuals[Random.Range(0, bestIndividuals.Length)];
-            Individal parent2 = bestIndividuals[Random.Range(0, bestIndividuals.Length)];
+            IndividalGenetic parent1 = bestIndividuals[Random.Range(0, bestIndividuals.Length)];
+            IndividalGenetic parent2 = bestIndividuals[Random.Range(0, bestIndividuals.Length)];
 
             crossPopulation[i] = parent1.Crossover(parent2);
         }
@@ -102,7 +102,7 @@ public class GeneticAlgorithm
         return crossPopulation;
     }
 
-    Individal[] Mutation(Individal[] newPopulation)
+    IndividalGenetic[] Mutation(IndividalGenetic[] newPopulation)
     {
         for (int i = 0; i < this.SizePopulation; i++)
         {
@@ -112,8 +112,8 @@ public class GeneticAlgorithm
                 int pos1index = Random.Range(0, newPopulation[i].Elements.Length);
                 int pos2index = Random.Range(0, newPopulation[i].Elements.Length);
 
-                Element action1 = newPopulation[i].Elements[pos1index];
-                Element action2 = newPopulation[i].Elements[pos2index];
+                ElementGenetic action1 = newPopulation[i].Elements[pos1index];
+                ElementGenetic action2 = newPopulation[i].Elements[pos2index];
 
                 newPopulation[i].Elements[pos1index] = action2;
                 newPopulation[i].Elements[pos2index] = action1;
