@@ -6,7 +6,7 @@ public class BaseManagerScript : MonoBehaviour {
 
 	public List<GameObject> listOfSpawnPoints = new List<GameObject>();
 	public int nbUnitToSpawn;
-	private List<GameObject> listOfUnits = new List<GameObject>();
+	public List<GameObject> listOfUnits = new List<GameObject>();
 	private int unitCounter;
 	private int currentSpawnPoint;
 	/*[HideInInspector]*/ public List<GameObject> listOfBases = new List<GameObject>();
@@ -43,7 +43,9 @@ public class BaseManagerScript : MonoBehaviour {
 				if(currentSpawnPoint >= listOfSpawnPoints.Count)
 					currentSpawnPoint = 0;
 				
-				unit.GetComponent<MovementScript>().motherBase = this.gameObject;	
+				unit.GetComponent<MovementScript>().motherBase = this.gameObject;
+				
+				listOfUnits.Add(unit);
 				//unit.GetComponent<MovementScript>().enemy = GetClosestEnemy(unit.transform.position);
 			}
 			unitCounter = i;
@@ -62,13 +64,15 @@ public class BaseManagerScript : MonoBehaviour {
 		
 			for(int j = 0; j < listOfBases[i].GetComponent<BaseManagerScript>().getNumberOfUnit(); ++j)
 			{
-				currentDistance = Vector3.Distance(position, listOfBases[i].GetComponent<BaseManagerScript>().listOfUnits[j].transform.position);
 				
+				currentDistance = Vector3.Distance(position, listOfBases[i].GetComponent<BaseManagerScript>().listOfUnits[j].transform.position);
+
 				if(currentDistance < distance)
 				{
 					distance = currentDistance;
 					closest = listOfBases[i].GetComponent<BaseManagerScript>().listOfUnits[j];
 				}
+				
 			}
 		}
 		
