@@ -35,7 +35,7 @@ public class ArmModuleScript : MonoBehaviour {
 
 		this.speed = _speed;
 		this.amplitude = _amplitude;
-		this.obj.transform.localScale = new Vector3 (Random.value, Random.value, Random.value);
+		this.obj.transform.localScale = new Vector3 (Random.value * 3f, Random.value * 1f, Random.value * 1f);
 
 		this.currentTime = this.amplitude / 2f;		
 		this.obj.transform.localPosition = new Vector3(this.obj.transform.localScale.x  / 2, 0, 0);	
@@ -43,8 +43,8 @@ public class ArmModuleScript : MonoBehaviour {
 
 	private void SetRotation() {
 		float temp = (this.moveRight) ? 1f : -1f;
-		this.transform.Rotate (new Vector3 (1f, 0f, 0f), temp * this.speed.x * Time.deltaTime * 50);
-		this.transform.Rotate (new Vector3 (0f, 1f, 0f), temp * this.speed.y * Time.deltaTime * 50);
-		this.transform.Rotate (new Vector3 (0f, 0f, 1f), temp * this.speed.z * Time.deltaTime * 50);
+		this.transform.Rotate (new Vector3 (1f, 0f, 0f), temp * (this.speed.x / this.amplitude) * Time.deltaTime * 50);
+		this.transform.Rotate (new Vector3 (0f, 1f, 0f), temp * (this.speed.y / this.amplitude) * Time.deltaTime * 50);
+		this.transform.Rotate (new Vector3 (0f, 0f, 1f), temp * (this.speed.z / this.amplitude) * Time.deltaTime * 50);
 	}
 }

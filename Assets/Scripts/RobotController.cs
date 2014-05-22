@@ -9,6 +9,8 @@ public class RobotController : MonoBehaviour {
 	/* Privates Attributes */
 	private List<Transform> sockets = new List<Transform>();
 
+	private int numerOfArm = 1;
+
 	// Use this for initialization
 	void Start () {
 		foreach (Transform child in transform) {
@@ -26,18 +28,26 @@ public class RobotController : MonoBehaviour {
 			module.transform.localPosition = Vector3.zero;
 			module.transform.localScale = Vector3.one;
 
-			if(i < 2) module.GetComponent<ArmModuleScript>().SetModule(new Vector3(2.0f, 2.0f, 2.0f), 1f);
+			if(i < this.numerOfArm) module.GetComponent<ArmModuleScript>().SetModule(new Vector3(Random.value * 5f, 0f, Random.value * 5f), Random.value * 3f);
 
 			Vector3 rotation 				= Vector3.zero;
 			Vector3 position 				= Vector3.zero;
 			float middle 					= this.transform.GetChild(i).transform.localScale.x / 2.0f;
 
-			if(i == 0) {
-				position.x = middle;
-			} else if (i == 1) {
-				rotation.y = 180;
-				position.x = -middle;
+			if(this.numerOfArm == 2) {
+				if(i == 0) {
+					position.x = middle;
+				} else if (i == 1) {
+					rotation.y = 180;
+					position.x = -middle;
+				}
+			} else {
+				if(i == 0) {
+					rotation.y = -90;
+					position.z = middle;
+				}
 			}
+
 
 //			if(i > 1 && i < 2){
 //				rotation.z = 90;
@@ -48,7 +58,7 @@ public class RobotController : MonoBehaviour {
 //				position.x = middle;
 //			}
 
-			if(i < 2) module.transform.Rotate(rotation);
+			if(i < this.numerOfArm) module.transform.Rotate(rotation);
 			module.transform.localPosition 	= position;
 		}
 	}
@@ -57,11 +67,11 @@ public class RobotController : MonoBehaviour {
 	void Update () {
 		//update neurons
 		//for each neuron, send message to matching module
-		foreach (GameObject module in modules) {
+		//foreach (GameObject module in modules) {
 			/*
 			module.SendMessage("AmplitudePulse", 5.0);
 			module.SendMessage("DirectionPulse", new Vector3(1.0f, 1.0f, 0.0f));
 			*/
-		}
+		//}
 	}
 }
