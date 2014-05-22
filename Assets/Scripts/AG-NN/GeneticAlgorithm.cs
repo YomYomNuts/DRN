@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-public class GeneticAlgorithmWeapon : MonoBehaviour
+public class GeneticAlgorithm : MonoBehaviour
 {
     #region Public Attributs
     // Weapon
@@ -20,23 +20,11 @@ public class GeneticAlgorithmWeapon : MonoBehaviour
     #endregion
 
     #region Private Attributs
-    private List<WeaponType> listBestWeapon;
-    private List<WillType> listBestWill;
+    private List<WeaponType> listBestWeapon = new List<WeaponType>();
+    private List<WillType> listBestWill = new List<WillType>();
     #endregion
 
-    // Use this for initialization
-	void Start ()
-    {
-        this.listBestWeapon = new List<WeaponType>();
-        this.listBestWill = new List<WillType>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	    
-	}
-
+    #region Public Function
     public WeaponType GetNewWeapon()
     {
         WeaponType wt = new WeaponType();
@@ -114,5 +102,5 @@ public class GeneticAlgorithmWeapon : MonoBehaviour
                                 .Take(this.numberBestReproductionWill)
                                 as List<WillType>;
     }
-
+    #endregion
 }

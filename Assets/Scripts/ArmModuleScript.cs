@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ArmModuleScript : MonoBehaviour {
 	private Vector3 speed;
@@ -8,6 +9,8 @@ public class ArmModuleScript : MonoBehaviour {
 
 	private float currentTime;
 	private bool moveRight = true;
+
+    private WeaponType weaponType;
 
 	// Use this for initialization
 	void Start () {
@@ -29,16 +32,23 @@ public class ArmModuleScript : MonoBehaviour {
 		this.SetRotation ();
 	}
 
-	public void SetModule(Vector3 _speed, float _amplitude) {
+    public void SetModule(WeaponType weaponType)
+    {
 		this.obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		this.obj.transform.parent = this.transform;
 
-		this.speed = _speed;
-		this.amplitude = _amplitude;
-		this.obj.transform.localScale = new Vector3 (Random.value * 3f, Random.value * 1f, Random.value * 1f);
+        this.weaponType = weaponType;
+        this.obj.transform.localScale = this.weaponType.Scale.ValueElement;
+        List<float> listInputs = new List<float>();
+        listInputs.Add(this.obj.transform.localScale.x);
+        listInputs.Add(this.obj.transform.localScale.y);
+        listInputs.Add(this.obj.transform.localScale.z);
+        List<float> listOuputs = this.weaponType.Network.Evaluate(listInputs);
+		this.speed = new Vector3(listOuputs[0], listOuputs[1], listOuputs[2]);
+        this.amplitude = listOuputs[3];
 
-		this.currentTime = this.amplitude / 2f;		
-		this.obj.transform.localPosition = new Vector3(this.obj.transform.localScale.x  / 2, 0, 0);	
+		this.currentTime = this.amplitude / 2f;
+		this.obj.transform.localPosition = new Vector3(this.obj.transform.localScale.x  / 2, 0, 0);
 	}
 
 	private void SetRotation() {

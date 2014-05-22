@@ -28,7 +28,7 @@ public class ElementGeneticWeapon
     #region Constructor
     public ElementGeneticWeapon()
     {
-        this.ValueElement = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+        this.ValueElement = new Vector3(Random.Range(0f, 3f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         this.Score = 0;
     }
     #endregion

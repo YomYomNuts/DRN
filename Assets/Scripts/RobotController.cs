@@ -6,6 +6,8 @@ public class RobotController : MonoBehaviour {
 	//Modules: 0 (left arm) 1 (right arm) 2 (bottom module)
 	public List<GameObject> modules = new List<GameObject>();
 
+    private BaseManagerScript baseManager;
+
 	/* Privates Attributes */
 	private List<Transform> sockets = new List<Transform>();
 
@@ -13,26 +15,40 @@ public class RobotController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		foreach (Transform child in transform) {
-			foreach(Transform subchild in child.transform){
+		foreach (Transform child in transform.parent)
+        {
+			foreach(Transform subchild in child.transform)
+            {
 				sockets.Add(subchild);
 			}
 		}
-		for (int i = 0; i < modules.Count; i++) {
+
+		for (int i = 0; i < modules.Count; i++)
+        {
 			GameObject module 				= (GameObject) GameObject.Instantiate(modules[i]);
-			if(i < sockets.Count)
-				module.transform.parent 	= sockets[i];
-			else module.transform.parent	= this.transform;
+            float middle = 0f;
+            if (i < sockets.Count)
+            {
+                module.transform.parent = sockets[i];
+                middle = sockets[i].localScale.x / 2.0f;
+            }
+            else
+            {
+                module.transform.parent = this.transform.parent;
+                middle = this.transform.parent.localScale.x / 2.0f;
+            }
 
 			module.transform.localRotation = Quaternion.identity;
 			module.transform.localPosition = Vector3.zero;
-			module.transform.localScale = Vector3.one;
+            module.transform.localScale = Vector3.one;
 
-			if(i < this.numerOfArm) module.GetComponent<ArmModuleScript>().SetModule(new Vector3(Random.value * 5f, 0f, Random.value * 5f), Random.value * 3f);
+            if (i < this.numerOfArm)
+                module.GetComponent<ArmModuleScript>().SetModule(this.baseManager.GetGeneticAlgorithm().GetNewWeapon());
+            else
+                module.GetComponent<MoveModuleScript>().SetModule(this.baseManager.GetGeneticAlgorithm().GetNewWill());
 
 			Vector3 rotation 				= Vector3.zero;
 			Vector3 position 				= Vector3.zero;
-			float middle 					= this.transform.GetChild(i).transform.localScale.x / 2.0f;
 
 			if(this.numerOfArm == 2) {
 				if(i == 0) {
@@ -58,8 +74,8 @@ public class RobotController : MonoBehaviour {
 //				position.x = middle;
 //			}
 
-			if(i < this.numerOfArm) module.transform.Rotate(rotation);
-			module.transform.localPosition 	= position;
+			if(i < this.numerOfArm) module.transform.parent.Rotate(rotation);
+            //module.transform.parent.localPosition = position;
 		}
 	}
 
@@ -74,4 +90,18 @@ public class RobotController : MonoBehaviour {
 			*/
 		//}
 	}
+
+    public void SetBaseManager(BaseManagerScript baseManager)
+    {
+        this.baseManager = baseManager;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == Const.LAYER_PLANE)
+        {
+            this.baseManager.RemoveUnit(this.transform.parent.gameObject);
+            Destroy(this.transform.parent.gameObject);
+        }
+    }
 }

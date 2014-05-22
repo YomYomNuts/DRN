@@ -32,7 +32,10 @@ public class ElementGeneticWill
     {
         this.ValueElement = new List<Vector3>();
         for (int i = 0; i < ElementGeneticWill.NUMBER_ELEMENTS; ++i)
-            this.ValueElement.Add(new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)));
+        {
+            float scale = Random.Range(0f, 1.0f);
+            this.ValueElement.Add(new Vector3(scale, scale, scale));
+        }
         this.Score = 0;
     }
     #endregion

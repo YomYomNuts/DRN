@@ -7,15 +7,16 @@ public class BaseManagerScript : MonoBehaviour {
 	public List<GameObject> listOfSpawnPoints = new List<GameObject>();
 	public int nbUnitToSpawn;
 	[HideInInspector] public List<GameObject> listOfUnits = new List<GameObject>();
-	private int unitCounter;
 	private int currentSpawnPoint;
 	[HideInInspector] public List<GameObject> listOfBases = new List<GameObject>();
 	public float timeToWaitBetweenSpawns;
+
+    private GeneticAlgorithm geneticAlgorithm;
 	
 	// Use this for initialization
 	void Start () {
-		
-		unitCounter = 0;
+        geneticAlgorithm = this.GetComponent<GeneticAlgorithm>();
+
 		currentSpawnPoint = 0;
 		
 		GameObject[] bases = GameObject.FindGameObjectsWithTag("Base");
@@ -40,28 +41,34 @@ public class BaseManagerScript : MonoBehaviour {
 	{
 		while(true)
 		{
-			if(unitCounter < nbUnitToSpawn)
+            if (this.listOfUnits.Count < nbUnitToSpawn)
 			{
-				GameObject unit = (GameObject)Instantiate(Resources.Load("Prefabs/Unit"));
+                GameObject unit = (GameObject)Instantiate(Const.Robot);
 				unit.transform.position = listOfSpawnPoints[currentSpawnPoint++].transform.position;
 				
 				if(currentSpawnPoint >= listOfSpawnPoints.Count)
 					currentSpawnPoint = 0;
-				
-				unit.GetComponent<MovementScript>().motherBase = this.gameObject;
+
+                unit.GetComponent<MovementScript>().motherBase = this.gameObject;
+                unit.GetComponentInChildren<RobotController>().SetBaseManager(this);
 				
 				Material baseMaterial = this.GetComponent<Renderer>().material;
-				unit.GetComponent<Renderer>().material = baseMaterial;
+                for (int i = 0; i < unit.transform.childCount; ++i)
+                {
+                    Transform tchild = unit.transform.GetChild(i);
+                    if (tchild.name == "Body")
+                    {
+                        tchild.renderer.material = baseMaterial;
+                        break;
+                    }
+                }
 				
 				listOfUnits.Add(unit);
-				unitCounter++;
 				
 				yield return new WaitForSeconds(timeToWaitBetweenSpawns);
 			}
-			
 			yield return new WaitForSeconds(0);
 		}
-		
 	}
 	
 	
@@ -73,18 +80,16 @@ public class BaseManagerScript : MonoBehaviour {
 		
 		for(int i = 0; i < listOfBases.Count; ++i)
 		{
-		
-			for(int j = 0; j < listOfBases[i].GetComponent<BaseManagerScript>().getNumberOfUnit(); ++j)
+            BaseManagerScript baseManager = listOfBases[i].GetComponent<BaseManagerScript>();
+            for (int j = 0; j < baseManager.getNumberOfUnit(); ++j)
 			{
-				
-				currentDistance = Vector3.Distance(position, listOfBases[i].GetComponent<BaseManagerScript>().listOfUnits[j].transform.position);
+                currentDistance = Vector3.Distance(position, baseManager.listOfUnits[j].transform.position);
 
 				if(currentDistance < distance)
 				{
 					distance = currentDistance;
-					closest = listOfBases[i].GetComponent<BaseManagerScript>().listOfUnits[j];
+                    closest = baseManager.listOfUnits[j];
 				}
-				
 			}
 		}
 		
@@ -115,9 +120,16 @@ public class BaseManagerScript : MonoBehaviour {
 	
 	public int getNumberOfUnit()
 	{
-		//Debug.Log("fct:" + unitCounter);
-		return unitCounter;
+        return this.listOfUnits.Count;
 	}
-	
-	
+
+    public GeneticAlgorithm GetGeneticAlgorithm()
+    {
+        return this.geneticAlgorithm;
+    }
+
+    public void RemoveUnit(GameObject unit)
+    {
+        this.listOfUnits.Remove(unit);
+    }
 }
