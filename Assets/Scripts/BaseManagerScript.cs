@@ -10,6 +10,7 @@ public class BaseManagerScript : MonoBehaviour {
 	private int unitCounter;
 	private int currentSpawnPoint;
 	[HideInInspector] public List<GameObject> listOfBases = new List<GameObject>();
+	public float timeToWaitBetweenSpawns;
 	
 	// Use this for initialization
 	void Start () {
@@ -26,30 +27,41 @@ public class BaseManagerScript : MonoBehaviour {
 				listOfBases.Add(baseInScene);
 			}
 		}
+		
+		StartCoroutine(CreateUnit());
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+	}
 	
-		if(unitCounter < nbUnitToSpawn)
+	IEnumerator CreateUnit()
+	{
+		while(true)
 		{
-			int i=0;
-			
-			for(i = unitCounter; i < nbUnitToSpawn; ++i)
+			if(unitCounter < nbUnitToSpawn)
 			{
 				GameObject unit = (GameObject)Instantiate(Resources.Load("Prefabs/Unit"));
 				unit.transform.position = listOfSpawnPoints[currentSpawnPoint++].transform.position;
-
+				
 				if(currentSpawnPoint >= listOfSpawnPoints.Count)
 					currentSpawnPoint = 0;
 				
 				unit.GetComponent<MovementScript>().motherBase = this.gameObject;
 				
+				Material baseMaterial = this.GetComponent<Renderer>().material;
+				unit.GetComponent<Renderer>().material = baseMaterial;
+				
 				listOfUnits.Add(unit);
-				//unit.GetComponent<MovementScript>().enemy = GetClosestEnemy(unit.transform.position);
+				unitCounter++;
+				
+				yield return new WaitForSeconds(timeToWaitBetweenSpawns);
 			}
-			unitCounter = i;
+			
+			yield return new WaitForSeconds(0);
 		}
+		
 	}
 	
 	
@@ -77,6 +89,28 @@ public class BaseManagerScript : MonoBehaviour {
 		}
 		
 		return closest;
+	}
+	
+	public List<GameObject> GetAlliedAround(GameObject unit, float distanceAround)
+	{	
+		List<GameObject> unitsAround = new List<GameObject>();
+		float distance = 0.0f;
+		
+		for(int i = 0; i < listOfUnits.Count; ++i)
+		{
+			if(listOfUnits[i].gameObject != unit)
+			{
+				distance = Vector3.Distance(unit.transform.position, listOfUnits[i].transform.position);
+				
+				if(distance < distanceAround)
+				{
+					unitsAround.Add (listOfUnits[i]);
+					return unitsAround;
+				}
+			}
+		}
+		
+		return unitsAround;
 	}
 	
 	public int getNumberOfUnit()
