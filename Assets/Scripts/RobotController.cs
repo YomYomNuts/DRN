@@ -100,7 +100,8 @@ public class RobotController : MonoBehaviour {
     {
         this.baseManager = baseManager;
     }
-
+	
+	/*
 	private GameObject lastHitObject = null;
     void OnCollisionEnter(Collision collision)
     {
@@ -126,4 +127,30 @@ public class RobotController : MonoBehaviour {
             Destroy(this.transform.parent.gameObject);
         }
     }
+    */
+	private GameObject lastHitObject = null;
+	
+	void OnTriggerEnter(Collider collision) {
+		if (!this.baseManager.listOfUnits.Contains(collision.gameObject)) {
+			if(collision.gameObject.GetComponent<RobotController>())
+				lastHitObject = collision.gameObject;
+		}
+		
+		if (collision.gameObject.layer == Const.LAYER_PLANE)
+		{
+			for (int i = numerOfArm; i < modules.Count; i++){
+				MoveModuleScript script = modules[i].GetComponentInChildren<MoveModuleScript>();
+				if(script) script.willType.Score--;
+				if(lastHitObject){
+					List<GameObject> mods = lastHitObject.GetComponent<RobotController>().modules;
+					for(int j = 0; j < mods.Count; j++){
+						var arm = mods[j].GetComponentInChildren<ArmModuleScript>();
+						if(arm) arm.weaponType.Score++;
+					}
+				}
+			}
+			this.baseManager.RemoveUnit(this.transform.parent.gameObject);
+			Destroy(this.transform.parent.gameObject);
+		}
+	}
 }

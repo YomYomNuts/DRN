@@ -45,7 +45,7 @@ public class ArmModuleScript : MonoBehaviour {
         listInputs.Add(this.obj.transform.localScale.y);
         listInputs.Add(this.obj.transform.localScale.z);
         List<float> listOuputs = this.weaponType.Network.Evaluate(listInputs);
-		this.speed = new Vector3(listOuputs[0], listOuputs[1], listOuputs[2]);
+		this.speed = new Vector3(listOuputs[0] * 10.0f, listOuputs[1] * 10.0f, listOuputs[2] * 10.0f);
         this.amplitude = listOuputs[3];
 
 		this.currentTime = this.amplitude / 2f;
