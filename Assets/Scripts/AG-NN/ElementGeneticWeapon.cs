@@ -3,10 +3,6 @@ using System.Collections;
 
 public class ElementGeneticWeapon
 {
-    #region Private Static Attributs
-    private static int MAX_SCORE = 999999999;
-    #endregion
-
     #region Private Attributs
     private Vector3 valueElement;
     private float score;
@@ -36,7 +32,7 @@ public class ElementGeneticWeapon
     #region Public Functions
     public float GetError()
     {
-        return ElementGeneticWeapon.MAX_SCORE - this.Score;
+        return Const.MAX_SCORE - this.Score;
     }
 
     public ElementGeneticWeapon Crossover(ElementGeneticWeapon otherParent)

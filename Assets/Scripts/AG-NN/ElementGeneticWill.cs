@@ -6,7 +6,6 @@ public class ElementGeneticWill
 {
     #region Private Static Attributs
     private static int NUMBER_ELEMENTS = 4;
-    private static int MAX_SCORE = 999999999;
     #endregion
 
     #region Private Attributs
@@ -43,7 +42,7 @@ public class ElementGeneticWill
     #region Public Functions
     public float GetError()
     {
-        return ElementGeneticWill.MAX_SCORE - this.Score;
+        return Const.MAX_SCORE - this.Score;
     }
 
     public ElementGeneticWill Crossover(ElementGeneticWill otherParent)
@@ -67,7 +66,10 @@ public class ElementGeneticWill
         if (Random.Range(0f, 1f) < mutationRate)
         {
             for (int i = 0; i < ElementGeneticWill.NUMBER_ELEMENTS; ++i)
-                this.ValueElement[i] += new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f) , Random.Range(-0.1f, 0.1f));
+            {
+                float modif = Random.Range(-0.1f, 0.1f);
+                this.ValueElement[i] += new Vector3(modif, modif, modif);
+            }
         }
     }
     #endregion

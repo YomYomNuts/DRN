@@ -10,10 +10,6 @@ public class Node
 
 public class NeuronalNetwork
 {
-    #region Private Static Attributs
-    private static int MAX_SCORE = 999999999;
-    #endregion
-
     #region Private Attributs
     private List<int> sizeNeuronalNetwork;
     private List<List<Node>> neuronalNetwork;
@@ -131,7 +127,7 @@ public class NeuronalNetwork
 
     public float GetError()
     {
-        return NeuronalNetwork.MAX_SCORE - this.Score;
+        return Const.MAX_SCORE - this.Score;
     }
 
     public NeuronalNetwork Crossover(NeuronalNetwork otherParent)
