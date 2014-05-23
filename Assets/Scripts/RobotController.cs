@@ -155,6 +155,8 @@ public class RobotController : MonoBehaviour {
 				}
 			}
 
+			AudioSource.PlayClipAtPoint(boom, this.transform.position);
+
 			baseColor = this.GetComponent<Renderer>().material.color;
 			this.boomPrefab.GetComponent<ParticleSystem> ().startColor = baseColor;
 			Instantiate(this.boomPrefab, this.transform.position, this.boomPrefab.GetComponent<Transform>().localRotation);
