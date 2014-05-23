@@ -89,8 +89,13 @@ public class RobotController : MonoBehaviour {
 			module.SendMessage("DirectionPulse", new Vector3(1.0f, 1.0f, 0.0f));
 			*/
 		//}
+
+		if (this.transform.position.y < -3) {
+			this.baseManager.RemoveUnit(this.transform.parent.gameObject);
+			Destroy(this.transform.parent.gameObject);
+		}
 	}
-	
+
     public void SetBaseManager(BaseManagerScript baseManager)
     {
         this.baseManager = baseManager;
