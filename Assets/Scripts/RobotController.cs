@@ -8,6 +8,7 @@ public class RobotController : MonoBehaviour {
 	public Transform boomPrefab;
 
     public BaseManagerScript baseManager;
+    public AudioClip boom;
 
 	/* Privates Attributes */
 	private List<Transform> sockets = new List<Transform>();

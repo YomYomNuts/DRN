@@ -11,6 +11,7 @@ public class MoveCameraScript : MonoBehaviour {
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        Screen.lockCursor = true;
 	}
 	
 	// Update is called once per frame
@@ -19,5 +20,8 @@ public class MoveCameraScript : MonoBehaviour {
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection *= speed;
         controller.Move(moveDirection * Time.deltaTime);
+        
+		if(Input.GetKeyUp(KeyCode.Escape))
+			Application.Quit();
     }
 }
