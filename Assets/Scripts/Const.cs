@@ -10,4 +10,8 @@ public class Const
     #region Layers
     public static int LAYER_PLANE = 8;
     #endregion
+
+    #region Values
+    public static int MAX_SCORE = 99999999;
+    #endregion
 }
