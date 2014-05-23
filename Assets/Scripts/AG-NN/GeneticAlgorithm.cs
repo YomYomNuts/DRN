@@ -21,7 +21,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
     #region Private Attributs
     private List<WeaponType> listBestWeapon = new List<WeaponType>();
-    private List<WillType> listBestWill = new List<WillType>();
+    private List<WheelType> listBestWill = new List<WheelType>();
     #endregion
 
     #region Public Function
@@ -80,27 +80,27 @@ public class GeneticAlgorithm : MonoBehaviour
                                 as List<WeaponType>;
     }
 
-    public WillType GetNewWill()
+    public WheelType GetNewWill()
     {
-        WillType wt = new WillType();
+        WheelType wt = new WheelType();
 
         if (this.listBestWill.Count > 0)
         {
-            wt.ScaleWills = this.listBestWill[Random.Range(0, this.listBestWill.Count - 1)].ScaleWills
-                                    .Crossover(this.listBestWill[Random.Range(0, this.listBestWill.Count - 1)].ScaleWills);
-            wt.ScaleWills.Mutation(valueMutationWill);
+            wt.ScaleWheels = this.listBestWill[Random.Range(0, this.listBestWill.Count - 1)].ScaleWheels
+                                    .Crossover(this.listBestWill[Random.Range(0, this.listBestWill.Count - 1)].ScaleWheels);
+            wt.ScaleWheels.Mutation(valueMutationWill);
         }
 
         return wt;
     }
 
-    public void ResultWill(WillType willType)
+    public void ResultWill(WheelType wheelType)
     {
-        this.listBestWill.Add(willType);
+        this.listBestWill.Add(wheelType);
         this.listBestWill = this.listBestWeapon
                                 .OrderBy((scoredindi) => scoredindi.Score)
                                 .Take(this.numberBestReproductionWill)
-                                as List<WillType>;
+                                as List<WheelType>;
     }
     #endregion
 }

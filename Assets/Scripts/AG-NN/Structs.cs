@@ -22,20 +22,20 @@ public class WeaponType
     }
 }
 
-public class WillType
+public class WheelType
 {
-    public ElementGeneticWill ScaleWills;
+    public ElementGeneticWheel ScaleWheels;
     public int Score;
 
-    public WillType()
+    public WheelType()
     {
-        this.ScaleWills = new ElementGeneticWill();
+        this.ScaleWheels = new ElementGeneticWheel();
         this.Score = 0;
     }
 
-    public WillType(ElementGeneticWill scaleWills)
+    public WheelType(ElementGeneticWheel scaleWheels)
     {
-        this.ScaleWills = scaleWills;
+        this.ScaleWheels = scaleWheels;
         this.Score = 0;
     }
 }

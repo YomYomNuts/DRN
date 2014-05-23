@@ -7,9 +7,4 @@ public class BoomScript : MonoBehaviour {
 	void Start () {
 		Destroy(this.gameObject, 1);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

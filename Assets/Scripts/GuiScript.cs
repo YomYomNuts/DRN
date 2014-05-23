@@ -11,11 +11,6 @@ public class GuiScript : MonoBehaviour {
 	void Start () {
 		bases = GameObject.FindGameObjectsWithTag("Base");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void OnGUI() {
 		GUI.skin = skin;

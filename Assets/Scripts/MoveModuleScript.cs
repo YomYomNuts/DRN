@@ -8,25 +8,16 @@ public class MoveModuleScript : MonoBehaviour {
 	private GameObject wheelBR;
 	private GameObject wheelBL;
 
-    public WillType willType;
+    public WheelType wheelType;
 
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-    public void SetModule(WillType willType)
+    public void SetModule(WheelType wheelType)
     {
-        this.willType = willType;
+        this.wheelType = wheelType;
 
-        this.SetWheel(out this.wheelFR, this.willType.ScaleWills.ValueElement[0]);
-        this.SetWheel(out this.wheelFL, this.willType.ScaleWills.ValueElement[1]);
-        this.SetWheel(out this.wheelBR, this.willType.ScaleWills.ValueElement[2]);
-        this.SetWheel(out this.wheelBL, this.willType.ScaleWills.ValueElement[3]);
+        this.SetWheel(out this.wheelFR, this.wheelType.ScaleWheels.ValueElement[0]);
+        this.SetWheel(out this.wheelFL, this.wheelType.ScaleWheels.ValueElement[1]);
+        this.SetWheel(out this.wheelBR, this.wheelType.ScaleWheels.ValueElement[2]);
+        this.SetWheel(out this.wheelBL, this.wheelType.ScaleWheels.ValueElement[3]);
 
 		this.wheelFR.transform.localPosition = new Vector3 (0.5f, -this.wheelFR.transform.localScale.y / 2.0f, 0.5f);
 		this.wheelFL.transform.localPosition = new Vector3 (-0.5f, -this.wheelFL.transform.localScale.y / 2.0f, 0.5f);

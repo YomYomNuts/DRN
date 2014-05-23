@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ElementGeneticWill
+public class ElementGeneticWheel
 {
     #region Private Static Attributs
     private static int NUMBER_ELEMENTS = 4;
@@ -27,10 +27,10 @@ public class ElementGeneticWill
     #endregion
 
     #region Constructor
-    public ElementGeneticWill()
+    public ElementGeneticWheel()
     {
         this.ValueElement = new List<Vector3>();
-        for (int i = 0; i < ElementGeneticWill.NUMBER_ELEMENTS; ++i)
+        for (int i = 0; i < ElementGeneticWheel.NUMBER_ELEMENTS; ++i)
         {
             float scale = Random.Range(0f, 1.0f);
             this.ValueElement.Add(new Vector3(scale, scale, scale));
@@ -45,9 +45,9 @@ public class ElementGeneticWill
         return Const.MAX_SCORE - this.Score;
     }
 
-    public ElementGeneticWill Crossover(ElementGeneticWill otherParent)
+    public ElementGeneticWheel Crossover(ElementGeneticWheel otherParent)
     {
-        ElementGeneticWill child = new ElementGeneticWill();
+        ElementGeneticWheel child = new ElementGeneticWheel();
 
         if (Random.Range(0f, 1f) >= 0.5f)
         {
@@ -65,7 +65,7 @@ public class ElementGeneticWill
     {
         if (Random.Range(0f, 1f) < mutationRate)
         {
-            for (int i = 0; i < ElementGeneticWill.NUMBER_ELEMENTS; ++i)
+            for (int i = 0; i < ElementGeneticWheel.NUMBER_ELEMENTS; ++i)
             {
                 float modif = Random.Range(-0.1f, 0.1f);
                 this.ValueElement[i] += new Vector3(modif, modif, modif);

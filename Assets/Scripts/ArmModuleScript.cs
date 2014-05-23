@@ -12,13 +12,6 @@ public class ArmModuleScript : MonoBehaviour {
 
     public WeaponType weaponType;
 
-	// Use this for initialization
-	void Start () {
-
-		//this.SetModule(new Vector3(2.0f, 2.0f, -2.0f), 1f);
-
-	}
-	
 	// Update is called once per frame
 	void Update () {
 

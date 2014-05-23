@@ -34,11 +34,6 @@ public class BaseManagerScript : MonoBehaviour {
 		StartCoroutine(CreateUnit());
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	
 	IEnumerator CreateUnit()
 	{
 		while(true)
@@ -46,6 +41,7 @@ public class BaseManagerScript : MonoBehaviour {
             if (this.listOfUnits.Count < nbUnitToSpawn)
 			{
                 GameObject unit = (GameObject)Instantiate(Const.Robot);
+                unit.transform.parent = this.transform;
 				unit.transform.position = listOfSpawnPoints[currentSpawnPoint++].transform.position;
 				
 				if(currentSpawnPoint >= listOfSpawnPoints.Count)
@@ -133,7 +129,6 @@ public class BaseManagerScript : MonoBehaviour {
     public void RemoveUnit(GameObject unit)
     {
         this.listOfUnits.Remove(unit);
-		//this.GetComponentsInChildren<TextMesh> () [1].text = "Lost: " + this.unitsRemoved;
 		this.unitsRemoved++;
     }
 }
