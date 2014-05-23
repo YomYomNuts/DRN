@@ -63,8 +63,12 @@ public class MovementScript : MonoBehaviour {
 		
 		if(enemy != null)
 		{
-			this.transform.LookAt(enemy.transform.position);
-			this.rigidbody.AddRelativeForce(0.0f,0.0f,1.0f * speedMovement * 10 * Time.deltaTime );
+			float distance = Vector3.Distance(this.transform.position, enemy.transform.position);
+
+			if(distance > 2f) {
+				this.transform.LookAt(new Vector3(enemy.transform.position.x, 0f, enemy.transform.position.z));
+				this.rigidbody.AddRelativeForce(0.0f,0.0f,1.0f * speedMovement * 10 * Time.deltaTime );
+			}
 		}
 	}
 	
