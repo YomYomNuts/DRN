@@ -149,14 +149,14 @@ public class RobotController : MonoBehaviour {
 						var arm = mods[j].GetComponentInChildren<ArmModuleScript>();
 						if(arm) arm.weaponType.Score++;
 						lastHitObject.GetComponent<RobotController>().baseManager.unitsKilled++;
-						lastHitObject.GetComponent<RobotController>().baseManager.GetComponentsInChildren<TextMesh>()[0].text = "Killed: " + lastHitObject.GetComponent<RobotController>().baseManager.unitsKilled;
+						//lastHitObject.GetComponent<RobotController>().baseManager.GetComponentsInChildren<TextMesh>()[0].text = "Killed: " + lastHitObject.GetComponent<RobotController>().baseManager.unitsKilled;
 					}
 				}
 			}
 
 			baseColor = this.GetComponent<Renderer>().material.color;
 			this.boomPrefab.GetComponent<ParticleSystem> ().startColor = baseColor;
-			Object boom = Instantiate(this.boomPrefab, this.transform.position, this.boomPrefab.GetComponent<Transform>().localRotation);
+			Instantiate(this.boomPrefab, this.transform.position, this.boomPrefab.GetComponent<Transform>().localRotation);
 			this.baseManager.RemoveUnit(this.transform.parent.gameObject);
 			Destroy(this.transform.parent.gameObject);
 		}
