@@ -12,6 +12,8 @@ public class BaseManagerScript : MonoBehaviour {
 	public float timeToWaitBetweenSpawns;
 
     private GeneticAlgorithm geneticAlgorithm;
+	private int unitsRemoved = 0;
+	public int unitsKilled = 0;
 	
 	// Use this for initialization
 	void Start () {
@@ -131,5 +133,7 @@ public class BaseManagerScript : MonoBehaviour {
     public void RemoveUnit(GameObject unit)
     {
         this.listOfUnits.Remove(unit);
+		this.GetComponentsInChildren<TextMesh> () [1].text = "Lost: " + this.unitsRemoved;
+		this.unitsRemoved++;
     }
 }

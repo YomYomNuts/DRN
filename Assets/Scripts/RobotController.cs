@@ -6,7 +6,7 @@ public class RobotController : MonoBehaviour {
 	//Modules: 0 (left arm) 1 (right arm) 2 (bottom module)
 	public List<GameObject> modules = new List<GameObject>();
 
-    private BaseManagerScript baseManager;
+    public BaseManagerScript baseManager;
 
 	/* Privates Attributes */
 	private List<Transform> sockets = new List<Transform>();
@@ -146,6 +146,8 @@ public class RobotController : MonoBehaviour {
 					for(int j = 0; j < mods.Count; j++){
 						var arm = mods[j].GetComponentInChildren<ArmModuleScript>();
 						if(arm) arm.weaponType.Score++;
+						lastHitObject.GetComponent<RobotController>().baseManager.unitsKilled++;
+						lastHitObject.GetComponent<RobotController>().baseManager.GetComponentsInChildren<TextMesh>()[0].text = "Killed: " + lastHitObject.GetComponent<RobotController>().baseManager.unitsKilled;
 					}
 				}
 			}
