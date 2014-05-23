@@ -10,7 +10,7 @@ public class ArmModuleScript : MonoBehaviour {
 	private float currentTime;
 	private bool moveRight = true;
 
-    private WeaponType weaponType;
+    public WeaponType weaponType;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +30,7 @@ public class ArmModuleScript : MonoBehaviour {
 		}
 
 		this.SetRotation ();
+
 	}
 
     public void SetModule(WeaponType weaponType)

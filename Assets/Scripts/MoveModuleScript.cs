@@ -8,7 +8,7 @@ public class MoveModuleScript : MonoBehaviour {
 	private GameObject wheelBR;
 	private GameObject wheelBL;
 
-    private WillType willType;
+    public WillType willType;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +16,7 @@ public class MoveModuleScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
     public void SetModule(WillType willType)
