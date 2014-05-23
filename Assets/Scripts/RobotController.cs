@@ -90,16 +90,33 @@ public class RobotController : MonoBehaviour {
 			*/
 		//}
 	}
-
+	
     public void SetBaseManager(BaseManagerScript baseManager)
     {
         this.baseManager = baseManager;
     }
 
+	private GameObject lastHitObject = null;
     void OnCollisionEnter(Collision collision)
     {
+		if (!this.baseManager.listOfUnits.Contains(collision.gameObject)) {
+			if(collision.gameObject.GetComponent<RobotController>())
+				lastHitObject = collision.gameObject;
+		}
+
         if (collision.gameObject.layer == Const.LAYER_PLANE)
         {
+			for (int i = 0; i < modules.Count; i++){
+				MoveModuleScript script = modules[i].GetComponent<MoveModuleScript>();
+				if(script) script.willType.Score--;
+				if(lastHitObject){
+					List<GameObject> mods = lastHitObject.GetComponent<RobotController>().modules;
+					for(int j = 0; j < mods.Count; j++){
+						var arm = mods[j].GetComponent<ArmModuleScript>();
+						if(arm) arm.weaponType.Score++;
+					}
+				}
+			}
             this.baseManager.RemoveUnit(this.transform.parent.gameObject);
             Destroy(this.transform.parent.gameObject);
         }
