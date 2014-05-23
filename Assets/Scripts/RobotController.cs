@@ -5,6 +5,7 @@ public class RobotController : MonoBehaviour {
 	/* Parameters */ 
 	//Modules: 0 (left arm) 1 (right arm) 2 (bottom module)
 	public List<GameObject> modules = new List<GameObject>();
+	public Transform boomPrefab;
 
     public BaseManagerScript baseManager;
 
@@ -12,6 +13,7 @@ public class RobotController : MonoBehaviour {
 	private List<Transform> sockets = new List<Transform>();
 
 	private int numerOfArm = 1;
+	private Color baseColor;
 
 	// Use this for initialization
 	void Start () {
@@ -151,6 +153,10 @@ public class RobotController : MonoBehaviour {
 					}
 				}
 			}
+
+			baseColor = this.GetComponent<Renderer>().material.color;
+			this.boomPrefab.GetComponent<ParticleSystem> ().startColor = baseColor;
+			Object boom = Instantiate(this.boomPrefab, this.transform.position, this.boomPrefab.GetComponent<Transform>().localRotation);
 			this.baseManager.RemoveUnit(this.transform.parent.gameObject);
 			Destroy(this.transform.parent.gameObject);
 		}
